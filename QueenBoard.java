@@ -67,7 +67,16 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve(){
+    return solveHelp(0,0, false);
+  }
 
+  private boolean solveHelp(int col, int row, boolean hasQueen) {
+    if (col == board.length-1 && hasQueen) return true; //if the board has been completed
+    if (col == board.length-1 && row == board.length && !hasQueen) return false;
+    if (board[row][col] != 0) {
+      if (row < board.length) return solveHelp(col, row+1);
+      else return solveHelp(col+1, 0);
+    }
   }
 
   /**
