@@ -6,6 +6,8 @@ public class QueenBoard {
   }
 
   private boolean addQueen(int r, int c) {
+    if (board[r][c] == -1) return false; //queen already there
+    if (board[r][c] > 0) return false; // if queen cannot be placed there
     board[r][c] = -1;
     for (int i = 1; r - i >= 0 && c + i < board.length; i++) {
       board[r-i][c+i] ++;
@@ -20,6 +22,7 @@ public class QueenBoard {
   }
 
   private boolean removeQueen(int r, int c) {
+    if (board[r][c] != -1) return false;
     board[r][c] = 0;
     for (int i = 1; r - i >= 0 && c + i < board.length; i++) {
       board[r-i][c+i] --;
