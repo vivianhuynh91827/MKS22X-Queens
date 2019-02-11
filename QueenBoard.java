@@ -89,40 +89,58 @@ public class QueenBoard {
     for (int r = 0; r < board.length; r++) {
       for (int c = 0; c < board.length; c++) {
         if (board[r][c] != 0) {
-          throw new IllegalStateException("Board must be empty in order to solve");
+          throw new IllegalStateException("Board must be empty in order to use solve()");
         }
       }
     }
-    return solveHelp(0,0, false,false);
+    return solveHelp(0);
   }
 
-  private boolean solveHelp(int col, int row, boolean remove, boolean hasQueen) {
-    if (col == board.length-1 && row == board.length-1 && hasQueen) return true;
-    // if (hasQueen) return solveHelp(col+1, 0, false);
-    if (row == board.length-1 && !hasQueen) {
-      clearBoard();
-      return false;
-    }
-    if (remove) {
-      removeQueen(row-1, col);
-    }
-    if (addQueen(row, col)) {
-      return solveHelp(row, col+1, true, false) || solveHelp(row+1, col, false, true);
+  private boolean solveHelp(int col) {
+    if (col == board.length) return true;
+    for (int row = 0; row < board.length; row ++) {
+      if (addQueen(row, col)) {
+        if (solveHelp(col+1)) {
+          return true;
+        }
+        removeQueen(row, col);
+      }
     }
     return false;
   }
 
-  // /**
-  // *@return the number of solutions found, and leaves the board filled with only 0's
-  // *@throws IllegalStateException when the board starts with any non-zero value
-  // */
-  // public int countSolutions(){
-  //
-  // }
+  /**
+  *@return the number of solutions found, and leaves the board filled with only 0's
+  *@throws IllegalStateException when the board starts with any non-zero value
+  */
+  public int countSolutions(){
+    for (int r = 0; r < board.length; r ++) {
+      for (int c = 0; c < board.length; c ++) {
+        if (board[r][c]!=0) {
+          throw new IllegalStateException("Board must be empty in order to use countSolutions()");
+        }
+      }
+    }
+    return countHelp(0,0);
+  }
+
+  private int countHelp(int col) {
+    if (col == board.length) return 1;
+    for (int row = 0; row < board.length; row++) {
+      if (addQueen(row,col)) {
+        if (solveHelp(col+1)) {
+          return 1;
+        }
+      }
+    }
+    return 1;
+  }
+
   public static void main(String[] args) {
-    QueenBoard test = new QueenBoard(2);
+    QueenBoard test = new QueenBoard(14);
     System.out.println(test);
     System.out.println(test.solve());
     System.out.println(test);
+
   }
 }
