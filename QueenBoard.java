@@ -36,14 +36,6 @@ public class QueenBoard {
     return true;
   }
 
-  private void clearBoard() {
-    for (int r = 0; r < board.length; r++) {
-      for (int c = 0; c < board.length; c++) {
-        board[r][c]=0;
-      }
-    }
-  }
-
   private void removeLastQueen() {
     boolean removed = false;
     for (int r = board.length-1; r >-1 && !removed; r++) {
@@ -136,10 +128,11 @@ public class QueenBoard {
     return currentCount;
   }
 
-  public static void main(String[] args) {
-    QueenBoard test = new QueenBoard(21);
-    System.out.println(test.solve());
-    System.out.println(test);
-
-  }
+  // public static void main(String[] args) {
+  //   QueenBoard test = new QueenBoard(21);
+  //   System.out.println(test.solve());
+  //   System.out.println(test);
+  //   QueenBoard test2 = new QueenBoard(14);
+  //   System.out.println(test2.countSolutions());
+  // }
 }
