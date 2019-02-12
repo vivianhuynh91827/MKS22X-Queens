@@ -121,24 +121,23 @@ public class QueenBoard {
         }
       }
     }
-    return countHelp(0,0);
+    return countHelp(0);
   }
 
   private int countHelp(int col) {
     if (col == board.length) return 1;
+    int currentCount = 0;
     for (int row = 0; row < board.length; row++) {
       if (addQueen(row,col)) {
-        if (solveHelp(col+1)) {
-          return 1;
-        }
+        currentCount+=countHelp(col+1);
       }
+      removeQueen(row, col);
     }
-    return 1;
+    return currentCount;
   }
 
   public static void main(String[] args) {
-    QueenBoard test = new QueenBoard(14);
-    System.out.println(test);
+    QueenBoard test = new QueenBoard(21);
     System.out.println(test.solve());
     System.out.println(test);
 
